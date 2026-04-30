@@ -42,8 +42,6 @@ The common pain points teams hit shipping LLM products:
 
 `mega-security` ships **two complementary workflows** behind four Claude Code commands — both fail-closed, both reproducible, both never modify your code without your explicit approval.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## 🚀 Quick Start
 
 Inside any Claude Code session:
@@ -73,8 +71,6 @@ claude --plugin-dir ~/mega-agent-security
 `--plugin-dir` is session-scoped and additive. To load multiple plugins in one session, repeat the flag. After editing plugin files mid-session, run `/reload-plugins` to refresh.
 
 </details>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🧩 What it does
 
@@ -180,8 +176,6 @@ flowchart TD
 
 </details>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## 🛡 Real-world incidents this defends against
 
 > [!NOTE]
@@ -196,8 +190,6 @@ flowchart TD
 | **OpenClaw "did exactly what they were told"** (2026)                                                                                                     | pii_disclosure     | Agent**published internal threat intelligence to the public web** — because it was told to                       |
 
 Statistic — **73% of production AI deployments were hit by prompt injection at least once in 2025** ([Obsidian Security](https://www.obsidiansecurity.com/blog/prompt-injection)).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 📊 Benchmark highlights
 
@@ -220,8 +212,6 @@ We ran a **24-cell sweep** (4 vendors × 2 tiers × 3 production scenarios) meas
 
 That repo carries the frozen 400-probe pool fingerprint, the SOUL scenarios (Compass support bot, GDPR Auditor, Job Applicant), per-category trajectories, and reproduction instructions.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## 📦 What's in the box
 
 ```
@@ -239,8 +229,6 @@ mega-agent-security-oss/
 
 Every command is **read-only by default** — none of them auto-modify your source code. Optimize commands present a unified diff at the end and let you decide whether and where to apply.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## 🔬 Vetted attack pool
 
 | Category               | Sources                                                                                  | Pool size (per split) |
@@ -252,15 +240,11 @@ Every command is **read-only by default** — none of them auto-modify your sour
 
 Every attack was vetted against a capable baseline AI — only the ones it actually failed to defend against (or barely defended) made it into the frozen pool. Trivial probes were dropped so meaningful differences between models actually surface instead of saturating at ~100%. The pool is **fingerprint-locked** (sha256 in `manifest.json`) so cross-run comparability is preserved.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## 📚 Documentation
 
 - [Agent pipeline security workflow](./docs/agent_security.md) — schemas, regulatory mapping, audit-grade output spec
 - [Leaderboard repo](https://github.com/mega-edo/mega-security-leaderboard) — full benchmark, methodology, reproduction
 - [Claude Code plugin marketplace](https://github.com/mega-edo/mega-security) — install entry point
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🌐 Built by MEGA Code
 
@@ -273,8 +257,6 @@ Every attack was vetted against a capable baseline AI — only the ones it actua
     </a>
   </p>
 </div>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🤝 Contributing
 

@@ -29,11 +29,11 @@
 
 ## ✨ Why?
 
+> [!WARNING]
+> **Routing through OpenClaw, Hermes, LiteLLM, or OpenRouter?** Your system prompt runs on whichever model the router picks at request time — and **defense rates swing from 0.50 to 0.91 across vendors**. Untuned, you ship the worst case.
+
 > [!IMPORTANT]
 > Your system prompt **is** your trust asset. In production it has been breaking — repeatedly: EchoLeak (zero-click M365 Copilot exfiltration), the Gap chatbot jailbreak, the Chevy "$1 Tahoe" persona override, and 7+ vendor system prompts now public on GitHub. A static prompt is no longer enough.
-
-> [!WARNING]
-> **Building with OpenClaw, Hermes-class agents, LiteLLM, or OpenRouter?** Your dev-time tool isn't your runtime model. Multi-vendor agent stacks route simple tasks to cheap small models (Gemini Flash, gpt-mini) and reasoning to frontier — meaning your system prompt is executed by *whichever model the router picked at request time*, and **each model fails differently** (DSR variance 0.50–0.91 in our benchmark). The layers above (LiteLLM, OpenRouter) are also under attack — see the 2026-03 TeamPCP backdoor incident. The system prompt is the lowest layer the operator still controls, and the only one that's tunable per model.
 
 The common pain points teams hit shipping LLM products:
 

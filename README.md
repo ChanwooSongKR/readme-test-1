@@ -5,7 +5,7 @@
 
 <h1>mega-security</h1>
 
-<p><strong>Production-grade security toolkit for LLM chatbots and agents.</strong><br>
+<p><strong>Production-grade system-prompt security for any LLM-powered system.</strong><br>
   Diagnose, harden, and benchmark — without rewriting your stack.</p>
 
 <p>
@@ -40,7 +40,7 @@ The common pain points teams hit shipping LLM products:
 - **🎯 No reproducible stop condition** — there's no objective signal for "is this prompt ship-ready?"
 - **🔁 Manual review is the only feedback loop** — you can't tell whether a prompt edit actually helped.
 
-`mega-security` ships **two Claude Code commands** that diagnose and harden a chatbot's system prompt — fail-closed, reproducible, and never modifying your code without your explicit approval.
+`mega-security` ships **two Claude Code commands** that diagnose and harden any LLM system prompt — fail-closed, reproducible, and never modifying your code without your explicit approval.
 
 ## 🚀 Quick Start
 
@@ -74,7 +74,7 @@ claude --plugin-dir ~/mega-agent-security
 
 ## 🧩 What it does
 
-For chatbots whose entire defense surface is one system prompt — no tools, no RAG, no multi-step orchestration. Two commands diagnose and harden it:
+Wherever you wire an LLM into your product — chatbots, agents, RAG-backed apps, copilots, content generators, classifiers — there's a system prompt holding your operator intent. `mega-security` targets that layer. Two commands diagnose and harden it:
 
 | Command              | What it produces                                                                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -40,7 +40,7 @@ The common pain points teams hit shipping LLM products:
 - **🎯 No reproducible stop condition** — there's no objective signal for "is this prompt ship-ready?"
 - **🔁 Manual review is the only feedback loop** — you can't tell whether a prompt edit actually helped.
 
-`mega-security` ships **two complementary workflows** behind four Claude Code commands — both fail-closed, both reproducible, both never modify your code without your explicit approval.
+`mega-security` ships **two Claude Code commands** that diagnose and harden a chatbot's system prompt — fail-closed, reproducible, and never modifying your code without your explicit approval.
 
 ## 🚀 Quick Start
 
@@ -74,11 +74,7 @@ claude --plugin-dir ~/mega-agent-security
 
 ## 🧩 What it does
 
-Two workflows ship together. Pick the one that matches your defense surface.
-
-### 1. Prompt security — for chatbots
-
-For chatbots whose entire defense surface is one system prompt: no tools, no RAG, no multi-step orchestration.
+For chatbots whose entire defense surface is one system prompt — no tools, no RAG, no multi-step orchestration. Two commands diagnose and harden it:
 
 | Command              | What it produces                                                                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |

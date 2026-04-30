@@ -76,10 +76,21 @@ claude --plugin-dir ~/mega-agent-security
 
 Wherever you wire an LLM into your product — chatbots, agents, RAG-backed apps, copilots, content generators, classifiers — there's a system prompt holding your operator intent. `mega-security` targets that layer. Two commands diagnose and harden it:
 
-| Command              | What it produces                                                                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/prompt-check`    | `MEGA_PROMPT_CHECK.md` — block rate per attack category, three failure examples per failing category, weakness pattern analysis with concrete prompt edits |
-| `/prompt-optimize` | `MEGA_PROMPT_OPTIMIZE.md` — per-iter score history, per-category trajectory, final unified diff (never auto-applied)                                       |
+<table>
+  <thead>
+    <tr><th width="220">Command</th><th>What it produces</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/prompt-check</code></td>
+      <td><code>MEGA_PROMPT_CHECK.md</code> — block rate per attack category, three failure examples per failing category, weakness pattern analysis with concrete prompt edits</td>
+    </tr>
+    <tr>
+      <td><code>/prompt-optimize</code></td>
+      <td><code>MEGA_PROMPT_OPTIMIZE.md</code> — per-iter score history, per-category trajectory, final unified diff (never auto-applied)</td>
+    </tr>
+  </tbody>
+</table>
 
 <details>
 <summary>How <code>/prompt-check</code> works (10-step pipeline)</summary>

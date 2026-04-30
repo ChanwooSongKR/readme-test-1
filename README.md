@@ -1,4 +1,4 @@
-`<a id="readme-top"></a>`
+<a id="readme-top"></a>
 
 <div align="center">
   <img src="./logo_mega_code.png" alt="MEGA Security" width="200">

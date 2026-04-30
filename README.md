@@ -220,6 +220,56 @@ flowchart TD
 
 Statistic — **73% of production AI deployments were hit by prompt injection at least once in 2025** ([Obsidian Security](https://www.obsidiansecurity.com/blog/prompt-injection)).
 
+## 🤔 Why this keeps happening
+
+### *"I built it with Claude Code, so my agent is secure by default"*
+
+Two different things, conflated:
+
+| Claude Code | Your deployed agent |
+|---|---|
+| A code-authoring tool — helps you *write* the source code | The system that actually runs in production. The model it calls is whatever name you wrote into your code |
+
+So in reality:
+
+- agent on `openai/gpt-5.5` → **GPT-5.5's** security characteristics apply
+- agent on `gemini/gemini-3.1-pro` → **Gemini's** apply
+- *Which IDE you used to write the code is irrelevant at runtime*
+
+The security posture across vendors is **not the same** for the same prompt:
+
+> "Claude demonstrated the most robust security posture by providing secure responses with high consistency. Gemini was the most vulnerable due to filtering failures and information leakage. GPT-4o behaved securely in most scenarios but exhibited inconsistency in the face of indirect attacks." — [Multi-Model Prompt Injection Survey, SciTePress 2025](https://www.scitepress.org/Papers/2025/138384/138384.pdf)
+
+> "There is no such thing as prompt portability. If you change models, you need to re-eval, and re-tune, all your prompts." — [Vivek Haldar](https://vivekhaldar.com/articles/portability-of-llm-prompts/) · also [PromptBridge, arXiv 2512.01420](https://arxiv.org/html/2512.01420v1)
+
+Claude Code doesn't close this gap. It doesn't know which API model you'll deploy against, and it doesn't auto-tune the system prompt for that model's specific attack patterns. (Vendor-locked stacks like the Claude Agent SDK are internally consistent — but lock-in is a different cost.)
+
+### Multi-API agents are the production standard
+
+Frontier Claude API pricing is roughly **5–10× the small/flash tiers** from OpenAI and Google — making Claude-only production traffic uneconomical for most startups and SMBs:
+
+> "Cost-based routing strategies route simple tasks to Gemini Flash (~$0.10/1M input) and complex reasoning to Claude, achieving cost savings of 50–80%." — [LangDB](https://blog.langdb.ai/integrate-gemini-claude-deepseek-into-agents-sdk-by-openai)
+
+The infrastructure has standardized around this pattern:
+
+| Tool | What it does |
+|---|---|
+| **[LiteLLM](https://github.com/BerriAI/litellm)** | 100+ LLM APIs behind an OpenAI-compatible interface — self-hosted, zero-vendor-lock-in |
+| **[OpenRouter](https://openrouter.ai/)** | 500+ models behind a single API key — $40M raised at $500M valuation (Jun 2025) |
+| **[Bifrost](https://www.getmaxim.ai/articles/gemini-cli-multi-model-setup-connect-to-claude-gpt-groq-and-20-providers-via-bifrost/)** / OpenAI Agents SDK compat | Gemini CLI ↔ Claude / GPT / Groq + 20 providers |
+| **[OpenClaude](https://github.com/Gitlawb/openclaude)** | Claude-compatible interface fronting 200+ models from OpenAI / Gemini / DeepSeek / Ollama |
+
+Real production agents look like this:
+
+```
+[development]                [deployment]
+Code in Claude Code    →     Agent uses LiteLLM / OpenRouter to
+                             dynamically pick GPT-5.5 / Gemini / Grok / Claude
+                             based on cost and task fit
+```
+
+OpenClaw, Hermes-class agent stacks, and similar multi-vendor frameworks all converge on this shape. **Even if your dev tool is Claude, the model your deployed agent calls is a separate decision — and the security of that model depends entirely on whether its system prompt has been tuned per-vendor.**
+
 ## 📦 What's in the box
 
 ```

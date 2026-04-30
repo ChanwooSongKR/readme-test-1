@@ -57,7 +57,7 @@ That's it. Four commands become available immediately:
 
 ```bash
 /prompt-check                  # 5–10 min diagnosis of a single system prompt
-/prompt-optimize               # iterative hardening with Pareto acceptance
+/prompt-optimize               # iterative hardening with no-regression guarantees
 ```
 
 To pull updates later: `/plugin upgrade mega-security`.

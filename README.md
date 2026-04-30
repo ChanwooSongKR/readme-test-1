@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
-  <img src="./logo_mega_code.png" alt="MEGA Security" width="320">
+  <img src="./logo_mega_code.svg" alt="MEGA Security" width="320">
 
 <h1>mega-security</h1>
 
@@ -20,7 +20,6 @@
     <a href="#-quick-start">Quick Start</a> ·
     <a href="#-what-it-does">What it does</a> ·
     <a href="#-proven-across-4-vendors--2-tiers--3-scenarios">Benchmark</a> ·
-    <a href="./docs/agent_security.md">Docs</a> ·
     <a href="https://github.com/mega-edo/mega-security-leaderboard">Leaderboard ↗</a> ·
     <a href="https://megacode.ai"><strong>megacode.ai ↗</strong></a>
   </p>
@@ -227,13 +226,10 @@ Statistic — **73% of production AI deployments were hit by prompt injection at
 mega-security/
 ├─ skills/
 │  ├─ prompt-check/       # 5–10 min single-prompt diagnosis
-│  ├─ prompt-optimize/    # iterative hardening with Pareto gates
-│  └─ mega-security/      # full agent pipeline audit + optimize
+│  └─ prompt-optimize/    # iterative hardening with Pareto gates
 ├─ hooks/                 # Claude Code lifecycle hooks
-├─ scripts/               # log / sanity / pricing / dep-graph helpers
-├─ tests/                 # judge regression + archetype detection
-└─ docs/
-   └─ agent_security.md   # full workflow, schemas, regulatory mapping
+├─ scripts/               # log / sanity / pricing helpers
+└─ tests/                 # judge regression + archetype detection
 ```
 
 Every command is **read-only by default** — none of them auto-modify your source code. Optimize commands present a unified diff at the end and let you decide whether and where to apply.
@@ -251,8 +247,7 @@ Every attack was vetted against a capable baseline AI — only the ones it actua
 
 ## 📚 Documentation
 
-- [Agent pipeline security workflow](./docs/agent_security.md) — schemas, regulatory mapping, audit-grade output spec
-- [Leaderboard repo](https://github.com/mega-edo/mega-security-leaderboard) — full benchmark, methodology, reproduction
+- [Leaderboard repo](https://github.com/mega-edo/mega-security-leaderboard) — full benchmark, methodology, real BREACHED traces
 - [Claude Code plugin marketplace](https://github.com/mega-edo/mega-security) — install entry point
 
 ## 🌐 Built by MEGA Code
@@ -262,7 +257,7 @@ Every attack was vetted against a capable baseline AI — only the ones it actua
 
   <p>
     <a href="https://megacode.ai">
-      <img src="./logo_mega_code.png" alt="megacode.ai" width="180">
+      <img src="./logo_mega_code.svg" alt="megacode.ai" width="180">
     </a>
   </p>
 </div>

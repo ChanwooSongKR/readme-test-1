@@ -13,13 +13,13 @@
     <a href="https://github.com/mega-edo/mega-security"><img src="https://img.shields.io/badge/Claude%20Code-Plugin-7C3AED" alt="Claude Code Plugin"></a>
     <a href="https://github.com/mega-edo/mega-security-leaderboard"><img src="https://img.shields.io/badge/Leaderboard-Sonnet%204.6-10b981" alt="Leaderboard"></a>
     <a href="#-real-world-incidents-this-defends-against"><img src="https://img.shields.io/badge/Defends-OWASP%20LLM%20Top%2010-orange" alt="OWASP LLM Top 10"></a>
-    <a href="#-benchmark-highlights"><img src="https://img.shields.io/badge/DSR-0.91%E2%86%921.00-success" alt="DSR"></a>
+    <a href="#-proven-across-4-vendors--2-tiers--3-scenarios"><img src="https://img.shields.io/badge/DSR-0.91%E2%86%921.00-success" alt="DSR"></a>
   </p>
 
 <p>
     <a href="#-quick-start">Quick Start</a> ·
     <a href="#-what-it-does">What it does</a> ·
-    <a href="#-benchmark-highlights">Benchmark</a> ·
+    <a href="#-proven-across-4-vendors--2-tiers--3-scenarios">Benchmark</a> ·
     <a href="./docs/agent_security.md">Docs</a> ·
     <a href="https://github.com/mega-edo/mega-security-leaderboard">Leaderboard ↗</a> ·
     <a href="https://megacode.ai"><strong>megacode.ai ↗</strong></a>
@@ -32,6 +32,9 @@
 
 > [!IMPORTANT]
 > Your system prompt **is** your trust asset. In production it has been breaking — repeatedly: EchoLeak (zero-click M365 Copilot exfiltration), the Gap chatbot jailbreak, the Chevy "$1 Tahoe" persona override, and 7+ vendor system prompts now public on GitHub. A static prompt is no longer enough.
+
+> [!WARNING]
+> **Building with OpenClaw, Hermes-class agents, LiteLLM, or OpenRouter?** Your dev-time tool isn't your runtime model. Multi-vendor agent stacks route simple tasks to cheap small models (Gemini Flash, gpt-mini) and reasoning to frontier — meaning your system prompt is executed by *whichever model the router picked at request time*, and **each model fails differently** (DSR variance 0.50–0.91 in our benchmark). The layers above (LiteLLM, OpenRouter) are also under attack — see the 2026-03 TeamPCP backdoor incident. The system prompt is the lowest layer the operator still controls, and the only one that's tunable per model.
 
 The common pain points teams hit shipping LLM products:
 
@@ -71,6 +74,26 @@ claude --plugin-dir ~/mega-agent-security
 `--plugin-dir` is session-scoped and additive. To load multiple plugins in one session, repeat the flag. After editing plugin files mid-session, run `/reload-plugins` to refresh.
 
 </details>
+
+## 📊 Proven across 4 vendors × 2 tiers × 3 scenarios
+
+A 24-cell sweep with `prompt-optimize` (Sonnet 4.6 rewriter, max 5 iters, Pareto acceptance gates). **23 of 24 cells reach DSR ≥ 0.94** with zero FRR regression beyond budget. Per-cell average across 3 production scenarios; tiebreaker = higher baseline DSR.
+
+| Rank | Vendor | Tier | Model | Base | **Opt** | Δ | Jailbreak | PII | Injection | Leak | FRR |
+|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | Anthropic | frontier | `claude-opus-4-7` | 0.91 | **1.00** | +0.09 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
+| 2 | Google | frontier | `gemini-3.1-pro-preview` | 0.68 | **1.00** | +0.32 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
+| 3 | Google | small | `gemini-3.1-flash-lite-preview` | 0.50 | **1.00** | +0.50 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
+| 4 | xAI | frontier | `grok-4.20-0309-reasoning` | 0.53 | **0.99** | +0.47 | 1.00 | 1.00 | 0.97 | 1.00 | 0.00 |
+| 5 | xAI | small | `grok-4-1-fast-non-reasoning` | 0.66 | **0.99** | +0.33 | 0.98 | 1.00 | 0.99 | 1.00 | 0.00 |
+| 6 | OpenAI | frontier | `gpt-5.5-2026-04-23` | 0.83 | **0.97** | +0.14 | 0.94 | 0.96 | 0.96 | 1.00 | 0.00 |
+| 7 | OpenAI | small | `gpt-5.4-mini-2026-03-17` | 0.73 | **0.95** | +0.22 | 0.82 | 1.00 | 0.99 | 0.99 | 0.00 |
+| 8 | Anthropic | small | `claude-haiku-4-5` | 0.80 | **0.91** | +0.11 | 0.92 | 0.93 | 1.00 | 0.79 | 0.02 |
+
+> [!TIP]
+> A *small* model with `prompt-optimize` (DSR 0.95–1.00) beats every *frontier* model used as-is. Cheap + automatic tuning > expensive + raw.
+
+➡️ Full per-cell breakdown, real BREACHED traces, methodology, and interpretation → **[mega-security-leaderboard ↗](https://github.com/mega-edo/mega-security-leaderboard)**
 
 ## 🧩 What it does
 
@@ -197,27 +220,6 @@ flowchart TD
 | **[OpenClaw "did exactly what they were told"](https://awesomeagents.ai/news/openclaw-agent-leaks-internal-threat-intelligence/)** (2026) | pii_disclosure | Agent **published internal threat intelligence to the public web** — because it was told to |
 
 Statistic — **73% of production AI deployments were hit by prompt injection at least once in 2025** ([Obsidian Security](https://www.obsidiansecurity.com/blog/prompt-injection)).
-
-## 📊 Benchmark highlights
-
-We ran a **24-cell sweep** (4 vendors × 2 tiers × 3 production scenarios) measuring baseline Defense Success Rate (DSR) and the lift from `prompt-optimize`. Headline numbers:
-
-| Result                                                      |             Number |
-| ----------------------------------------------------------- | -----------------: |
-| Frontier baseline DSR (best:`claude-opus-4-7`)            |     **0.91** |
-| Frontier baseline DSR (worst:`grok-4.20-reasoning`)       |     **0.53** |
-| Frontier DSR after `prompt-optimize` (best)               |     **1.00** |
-| Cells reaching optimized DSR ≥ 0.94                        |  **23 / 24** |
-| Largest single-cell improvement (`gemini-3.1-flash-lite`) | **+0.50 pp** |
-
-> [!TIP]
-> **Headline finding** — a *small* model with `prompt-optimize` (DSR 0.99–1.00) beats every *frontier* model used as-is. Cheap + automatic tuning > expensive + raw.
-
-➡️ **Full leaderboard, per-cell breakdown, methodology, and the Sonnet vs. Opus rewriter comparison live in a dedicated repo:**
-
-### **[github.com/mega-edo/mega-security-leaderboard ↗](https://github.com/mega-edo/mega-security-leaderboard)**
-
-That repo carries the frozen 400-probe pool fingerprint, the SOUL scenarios (Compass support bot, GDPR Auditor, Job Applicant), per-category trajectories, and reproduction instructions.
 
 ## 📦 What's in the box
 

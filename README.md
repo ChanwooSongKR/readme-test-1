@@ -180,17 +180,6 @@ flowchart TD
 
 </details>
 
-### 2. Agent pipeline security — for full agents
-
-For agents that go beyond a single system prompt: tool use, RAG retrieval, multi-step / multi-turn workflows. Covers input/output filters, RAG hardening, tool gating, context contamination, and dual-axis Pareto acceptance plus regulatory mapping (**EU AI Act / NIST AI RMF / OWASP LLM Top 10**).
-
-| Command                           | What it produces                                                                          |
-| --------------------------------- | ----------------------------------------------------------------------------------------- |
-| `/mega-security:agent-check`    | `MEGA_SECURITY_PLAN.md` → auto-runs baseline → `MEGA_SECURITY_CHECK.md`             |
-| `/mega-security:agent-optimize` | optimization loop → auto meta-learning →`MEGA_SECURITY.md` (audit-grade final report) |
-
-Full workflow detail, output schemas, and regulatory mapping → **[docs/agent_security.md](./docs/agent_security.md)**.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🛡 Real-world incidents this defends against
@@ -280,7 +269,7 @@ Every attack was vetted against a capable baseline AI — only the ones it actua
 
   <p>
     <a href="https://megacode.ai">
-      <img src="https://img.shields.io/badge/Visit-megacode.ai-000000?style=for-the-badge&labelColor=000000" alt="Visit megacode.ai">
+      <img src="./logo_mega_code.png" alt="megacode.ai" width="180">
     </a>
   </p>
 </div>

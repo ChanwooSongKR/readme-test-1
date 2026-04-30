@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
-  <img src="./logo_mega_code.png" alt="MEGA Security" width="200">
+  <img src="./logo_mega_code.png" alt="MEGA Security" width="320">
 
 <h1>mega-security</h1>
 

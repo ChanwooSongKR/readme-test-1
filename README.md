@@ -3,7 +3,7 @@
 <div align="center">
   <img src="./logo_mega_code.svg" alt="MEGA Security" width="320">
 
-<h1>mega-security</h1>
+<h1>MEGA Security</h1>
 
 <p><strong>Production-grade system-prompt security for any LLM-powered system.</strong><br>
   Diagnose, harden, and benchmark — without rewriting your stack.</p>

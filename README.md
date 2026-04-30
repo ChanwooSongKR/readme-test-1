@@ -188,13 +188,13 @@ flowchart TD
 > [!NOTE]
 > Each incident below maps to a probe family in our 400-probe pool. Hardening the system prompt with `prompt-optimize` exercises the same attack mechanism — the injection still arrives, but it no longer succeeds.
 
-| Incident                                                                                                                                                        | Category           | What broke                                                                                                              |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| **Three AI coding agents leak simultaneously** (2026)                                                                                                     | prompt_injection   | One injection caused**simultaneous API key + token leakage across Claude Code, Gemini CLI, and Copilot**          |
-| **EchoLeak — M365 Copilot zero-click exfiltration** (2025-06)                                                                                            | prompt_injection   | First production AI**zero-click** data leak — a received email hijacked Copilot with no user action              |
-| **Vendor system prompts leaked on GitHub** (2025–2026)                                                                                                   | system_prompt_leak | Production prompts from ChatGPT, Claude, Gemini, Grok, Cursor, Devin, Replit all extracted and kept up to date publicly |
-| **Gap chatbot jailbreak** + **Chevy "$1 Tahoe"** | jailbreak | DAN persona override broke the dealer bot into a "legally binding" $76K-for-$1 offer |                    |                                                                                                                         |
-| **OpenClaw "did exactly what they were told"** (2026)                                                                                                     | pii_disclosure     | Agent**published internal threat intelligence to the public web** — because it was told to                       |
+| Incident | Category | What broke |
+|---|---|---|
+| **[Three AI coding agents leak simultaneously](https://venturebeat.com/security/ai-agent-runtime-security-system-card-audit-comment-and-control-2026)** (2026) | prompt_injection | One injection caused **simultaneous API key + token leakage across Claude Code, Gemini CLI, and Copilot** |
+| **[EchoLeak — M365 Copilot zero-click exfiltration](https://genai.owasp.org/2025/07/14/owasp-gen-ai-incident-exploit-round-up-q225/)** (2025-06) | prompt_injection | First production AI **zero-click** data leak — a received email hijacked Copilot with no user action |
+| **Vendor system prompts leaked on GitHub** (2025–2026) — [asgeirtj](https://github.com/asgeirtj/system_prompts_leaks) · [CL4R1T4S](https://github.com/elder-plinius/CL4R1T4S) | system_prompt_leak | Production prompts from ChatGPT, Claude, Gemini, Grok, Cursor, Devin, Replit all extracted and kept up to date publicly |
+| **[Gap chatbot jailbreak](https://www.emarketer.com/content/gap-chatbot-jailbreak-brand-safety-risk)** + **[Chevy "$1 Tahoe"](https://incidentdatabase.ai/cite/622/)** | jailbreak | DAN persona override broke the dealer bot into a "legally binding" $76K-for-$1 offer |
+| **[OpenClaw "did exactly what they were told"](https://awesomeagents.ai/news/openclaw-agent-leaks-internal-threat-intelligence/)** (2026) | pii_disclosure | Agent **published internal threat intelligence to the public web** — because it was told to |
 
 Statistic — **73% of production AI deployments were hit by prompt injection at least once in 2025** ([Obsidian Security](https://www.obsidiansecurity.com/blog/prompt-injection)).
 

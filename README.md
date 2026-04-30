@@ -165,7 +165,7 @@ flowchart TD
     B --> Loop{iter less than max_iter?}
     Loop -- no --> Term
     Loop -- yes --> D[Build failure summary<br/>tuning set only — no scoring leakage]
-    D --> E[Rewriter proposes candidate<br/>default: claude-opus-4-7]
+    D --> E[Rewriter proposes candidate<br/>uses your Claude Code default model]
     E --> F{Tuning gate<br/>improves on tuning set?}
     F -- no --> R1[Reject — cheap exit<br/>no scoring-set spend]
     F -- yes --> G{Scoring gate<br/>no regression and FRR in budget?}
@@ -179,8 +179,8 @@ flowchart TD
     Stall -- yes --> Term
     Stall -- no --> Loop
     Term[4.Termination] --> Z{5.Diff + AskUserQuestion}
-    Z -- Save only --> Out([Write MEGA_PROMPT_OPTIMIZE.md])
-    Z -- Show verbatim --> Out
+    Z -- Auto-apply recommended --> Out([Write MEGA_PROMPT_OPTIMIZE.md])
+    Z -- Manual apply --> Out
     Z -- Discard --> Out
 
     classDef gate fill:#fef3c7,stroke:#d97706,color:#78350f
@@ -197,11 +197,11 @@ flowchart TD
 2. **Measure tuning-set baseline** (one-time) — the optimizer needs it once for the search signal.
 3. **Iteration loop** (up to 10):
    - Build the failure summary from the tuning set only — the rewriter never sees scoring traces.
-   - Rewriter (claude-opus-4-7 by default) proposes a hardened candidate.
+   - Rewriter (your Claude Code default model) proposes a hardened candidate.
    - **Tuning gate (cheap reject)** — if the candidate doesn't even improve on the tuning set, reject without spending budget on the scoring set.
    - **Scoring gate (generalization)** — only candidates that pass the tuning gate get a scoring-set measurement. Accept only if scoring-set block rate didn't regress and over-blocking rate stayed in budget.
 4. **Termination** — every scoring-set threshold cleared, max_iter reached, or 3 consecutive iters without `best` changing.
-5. **Diff + AskUserQuestion** — `Save only / Show verbatim / Discard`. Never auto-applied.
+5. **Diff + AskUserQuestion** — `Auto-apply (recommended) / Manual apply / Discard`.
 
 </details>
 

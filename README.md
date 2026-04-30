@@ -224,7 +224,7 @@ Statistic — **73% of production AI deployments were hit by prompt injection at
 ## 📦 What's in the box
 
 ```
-mega-agent-security-oss/
+mega-security/
 ├─ skills/
 │  ├─ prompt-check/       # 5–10 min single-prompt diagnosis
 │  ├─ prompt-optimize/    # iterative hardening with Pareto gates

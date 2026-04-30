@@ -51,7 +51,7 @@ Inside any Claude Code session:
 
 ```bash
 /plugin marketplace add https://github.com/mega-edo/mega-security
-/plugin install mega-security@mega-security
+/plugin install mega-edo@mega-security
 ```
 
 That's it. Four commands become available immediately:

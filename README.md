@@ -5,8 +5,8 @@
 
 <h1>MEGA Security</h1>
 
-<p><strong>Production-grade system-prompt security for any LLM-powered system.</strong><br>
-  Diagnose, harden, and benchmark — without rewriting your stack.</p>
+<p><strong>The evaluation-driven approach to LLM system-prompt security.</strong><br>
+  Define the attack surface, measure it, harden to pass.</p>
 
 <p>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
@@ -42,7 +42,7 @@ The common pain points teams hit shipping LLM products:
 - **🎯 No reproducible stop condition** — there's no objective signal for "is this prompt ship-ready?"
 - **🔁 Manual review is the only feedback loop** — you can't tell whether a prompt edit actually helped.
 
-`mega-security` ships **two Claude Code commands** that diagnose and harden any LLM system prompt — fail-closed, reproducible, and never modifying your code without your explicit approval.
+`mega-security` is an example of evaluation-driven development applied to LLM security — ships **two Claude Code commands** that diagnose and harden any LLM system prompt, fail-closed, reproducible, and never modifying your code without your explicit approval.
 
 ## 🚀 Quick Start
 
@@ -50,13 +50,17 @@ Inside any Claude Code session:
 
 ```bash
 /plugin marketplace add https://github.com/mega-edo/mega-security
-/plugin install mega-edo@mega-security
+```
+```bash
+/plugin install mega-security@mega-edo
 ```
 
-That's it. Four commands become available immediately:
+That's it. Commands become available immediately:
 
 ```bash
 /prompt-check                  # 5–10 min diagnosis of a single system prompt
+```
+```bash
 /prompt-optimize               # iterative hardening with no-regression guarantees
 ```
 
@@ -80,14 +84,14 @@ A 24-cell sweep with `prompt-optimize` (Sonnet 4.6 rewriter, max 5 iters, Pareto
 
 | Rank | Vendor | Tier | Model | Base | **Opt** | Δ | Jailbreak | PII | Injection | Leak | FRR |
 |---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Anthropic | frontier | `claude-opus-4-7` | 0.91 | **1.00** | +0.09 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
+| 1 | Anthropic | frontier | `claude-opus-4.7` | 0.91 | **1.00** | +0.09 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
 | 2 | Google | frontier | `gemini-3.1-pro-preview` | 0.68 | **1.00** | +0.32 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
 | 3 | Google | small | `gemini-3.1-flash-lite-preview` | 0.50 | **1.00** | +0.50 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 |
 | 4 | xAI | frontier | `grok-4.20-0309-reasoning` | 0.53 | **0.99** | +0.47 | 1.00 | 1.00 | 0.97 | 1.00 | 0.00 |
-| 5 | xAI | small | `grok-4-1-fast-non-reasoning` | 0.66 | **0.99** | +0.33 | 0.98 | 1.00 | 0.99 | 1.00 | 0.00 |
-| 6 | OpenAI | frontier | `gpt-5.5-2026-04-23` | 0.83 | **0.97** | +0.14 | 0.94 | 0.96 | 0.96 | 1.00 | 0.00 |
-| 7 | OpenAI | small | `gpt-5.4-mini-2026-03-17` | 0.73 | **0.95** | +0.22 | 0.82 | 1.00 | 0.99 | 0.99 | 0.00 |
-| 8 | Anthropic | small | `claude-haiku-4-5` | 0.80 | **0.91** | +0.11 | 0.92 | 0.93 | 1.00 | 0.79 | 0.02 |
+| 5 | xAI | small | `grok-4.1-fast-non-reasoning` | 0.66 | **0.99** | +0.33 | 0.98 | 1.00 | 0.99 | 1.00 | 0.00 |
+| 6 | OpenAI | frontier | `gpt-5.5` | 0.83 | **0.97** | +0.14 | 0.94 | 0.96 | 0.96 | 1.00 | 0.00 |
+| 7 | OpenAI | small | `gpt-5.4-mini` | 0.73 | **0.95** | +0.22 | 0.82 | 1.00 | 0.99 | 0.99 | 0.00 |
+| 8 | Anthropic | small | `claude-haiku-4.5` | 0.80 | **0.91** | +0.11 | 0.92 | 0.93 | 1.00 | 0.79 | 0.02 |
 
 > [!TIP]
 > A *small* model with `prompt-optimize` (DSR 0.95–1.00) beats every *frontier* model used as-is. Cheap + automatic tuning > expensive + raw.
@@ -286,12 +290,12 @@ Every command is **read-only by default** — none of them auto-modify your sour
 
 ## 🔬 Vetted attack pool
 
-| Category               | Sources                                                                                  | Pool size (per split) |
-| ---------------------- | ---------------------------------------------------------------------------------------- | --------------------- |
-| `prompt_injection`   | HarmBench + in-house synth (12 indirect-injection vectors × 12 payloads + 8 singletons) | 50 + 50               |
-| `jailbreak`          | DAN-in-the-wild                                                                          | 50 + 50               |
-| `pii_disclosure`     | In-house synth (16 hard patterns × 12 victim profiles)                                  | 50 + 50               |
-| `system_prompt_leak` | In-house synth (24 patterns × 7 targets + 8 singletons)                                 | 50 + 50               |
+| Category               | Sources                                                                                  | Pool size |
+| ---------------------- | ---------------------------------------------------------------------------------------- | --------- |
+| `prompt_injection`   | HarmBench + in-house synth (12 indirect-injection vectors × 12 payloads + 8 singletons) | 100       |
+| `jailbreak`          | DAN-in-the-wild                                                                          | 100       |
+| `pii_disclosure`     | In-house synth (16 hard patterns × 12 victim profiles)                                  | 100       |
+| `system_prompt_leak` | In-house synth (24 patterns × 7 targets + 8 singletons)                                 | 100       |
 
 Every attack was vetted against a capable baseline AI — only the ones it actually failed to defend against (or barely defended) made it into the frozen pool. Trivial probes were dropped so meaningful differences between models actually surface instead of saturating at ~100%. The pool is **fingerprint-locked** (sha256 in `manifest.json`) so cross-run comparability is preserved.
 
@@ -303,12 +307,17 @@ Every attack was vetted against a capable baseline AI — only the ones it actua
 ## 🌐 Built by MEGA Code
 
 <div align="center">
-  <p><strong>mega-security is part of the <a href="https://megacode.ai">MEGA Code</a> platform</strong> — autonomous skill curation, optimization, and evaluation for production AI systems.</p>
+  <p><strong>mega-security is part of the <a href="https://megacode.ai">MEGA Code</a> platform</strong></p>
 
   <p>
     <a href="https://megacode.ai">
       <img src="./logo_mega_code.svg" alt="megacode.ai" width="180">
     </a>
+  </p>
+
+  <p>
+    <a href="https://x.com/megacode_ai"><img src="https://img.shields.io/badge/Follow-@megacode__ai-000000?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X"></a>
+    <a href="https://discord.gg/Dcr7JfYmuK"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord"></a>
   </p>
 </div>
 
